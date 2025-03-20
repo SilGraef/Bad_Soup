@@ -1,0 +1,57 @@
+import json
+import pandas as pd
+import matplotlib.pyplot as plt
+from collections import defaultdict
+
+def process_data(file_path):
+    rule_id_stats = defaultdict(lambda: {'total': 0, 'full_agreement': 0})
+
+    with open(file_path, 'r') as file:
+        for line in file:
+            data = json.loads(line)
+            rule_id = data['humanLabelData']['submissions'][next(iter(data['humanLabelData']['submissions']))]['metadata']['rule_id']
+            submissions = data['humanLabelData']['submissions']
+            
+            annotations = [sub['rule_violation'] for sub in submissions.values() if sub['rule_violation'] != 'N/A']
+            
+            rule_id_stats[rule_id]['total'] += 1
+            if len(annotations) == 3 and len(set(annotations)) == 1:
+                rule_id_stats[rule_id]['full_agreement'] += 1
+
+    return rule_id_stats
+
+# Function to create a bar chart
+def create_bar_chart(data, title, filename):
+    plt.figure(figsize=(12, 6))
+    plt.bar(range(len(data)), data.values)
+    plt.title(title)
+    plt.xlabel('Rule ID')
+    plt.ylabel('Percentage')
+    plt.xticks(range(len(data)), data.index, rotation=45, ha='right')
+    plt.tight_layout()
+    plt.savefig(filename)
+    plt.close()
+
+file_path = 'dummy_data.jsonl'  # My input file
+rule_id_stats = process_data(file_path)
+
+df = pd.DataFrame([
+    {
+        'rule_id': rule_id,
+        'total': stats['total'],
+        'full_agreement_percentage': (stats['full_agreement'] / stats['total']) * 100 if stats['total'] > 0 else 0
+    }
+    for rule_id, stats in rule_id_stats.items()
+])
+
+df_sorted = df.sort_values('full_agreement_percentage')
+
+create_bar_chart(df_sorted.set_index('rule_id')['full_agreement_percentage'], 
+                 'Full Agreement Percentage by Rule ID', 
+                 'full_agreement_chart.png')
+
+# Print statistics
+print("Rule ID Statistics (sorted by Full Agreement Percentage):")
+print(df_sorted.to_string(index=False))
+
+print("\nFull agreement chart has been saved as 'full_agreement_chart.png'.")
