@@ -2,8 +2,6 @@
 
 ### Example Scoring and Analysis for a Mock Machine Learning Annotation
 
-This demonstrates scoring and analysis for a fabricated machine learning annotation scenario.
-
 For demonstration purposes, I created a `dummy_data.jsonl` file containing mock data, including:
 - A unique alphanumeric `dataItemId`. All alphanumeric values were randomly generated. 
 - A `Final Label` representing the ground truth yes/no annotation.
