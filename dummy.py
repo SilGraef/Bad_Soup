@@ -61,12 +61,12 @@ for r in dataframe_to_rows(df, index=False, header=True):
 
 for annotator in all_annotators:
     sheet = wb.create_sheet(title=annotator)
-    
-    annotator_df = df[['dataItemId', 'rule_id', 'Final Label', annotator, 'agreement_count']]
-    annotator_df.columns = ['dataItemId', 'rule_id', 'Final Label', 'Decision', 'Agreement Count']
-    
+
+    annotator_df = df[['dataItemId', 'rule_id', 'Final Label', annotator]] # Removed 'agreement_count'
+    annotator_df.columns = ['dataItemId', 'rule_id', 'Final Label', 'Decision'] # Removed 'Agreement Count'
+
     annotator_df['Matches Final Label'] = annotator_df.apply(
-        lambda row: int(row['Decision'] == row['Final Label']) if row['Decision'] != 'N/A' else 'N/A', 
+        lambda row: int(row['Decision'] == row['Final Label']) if row['Decision'] != 'N/A' else 'N/A',
         axis=1
     )
     
