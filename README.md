@@ -22,15 +22,14 @@ The Python script `dummy.py` generates an Excel file named `dummy_output.xlsx` c
 
 - Creates a new column `Matches Final Label`and uses a lambda function to checks if the annotator's decision matches the final label:  `annotator_df['Matches Final Label'] = annotator_df.apply(lambda row: int(row['Decision'] == row['Final Label']) if row['Decision'] != 'N/A' else 'N/A', axis=1)`
  
-In the terminal, it prints the following: 
+In the terminal, the script prints:
 - Total Annotations
 - Full Agreement (3/3) Count
 - Full Agreement (3/3) Percentage
 - Majority Agreement (2+/3) Count
 - Majority Agreement (2+/3) Percentage
 - Annotator Participation Counts
-
-A warning for items that were not triple annotated.
+- A warning for items that were not triple annotated.
 
 The python script `dummy_charts.py` generates a png bar chart based on the following:
 
