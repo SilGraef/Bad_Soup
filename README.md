@@ -31,3 +31,11 @@ In the terminal, it prints the following:
 - Annotator Participation Counts
 
 A warning for items that were not triple annotated.
+
+The python script `dummy_chart.py` generates a png bar chart based on the following:
+
+- Analyzes Annotation Agreement:
+    - This script processes human annotation data from the `dummy_data.jsonl` file to determine the percentage of full agreement among annotators for each rule.
+- Visualizes Agreement with a Bar Chart:
+    - It generates a bar chart (`full_agreement_chart.png`) that visually represents the full agreement percentage for each `rule_id`, allowing for quick identification of rules with high or low annotation consistency.
+    - The chart output is sorted from lowest agreement percentage to the highest.
