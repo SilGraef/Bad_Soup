@@ -32,7 +32,7 @@ In the terminal, it prints the following:
 
 A warning for items that were not triple annotated.
 
-The python script `dummy_chart.py` generates a png bar chart based on the following:
+The python script `dummy_charts.py` generates a png bar chart based on the following:
 
 - Analyzes Annotation Agreement:
     - This script processes human annotation data from the `dummy_data.jsonl` file to determine the percentage of full agreement among annotators for each rule.
